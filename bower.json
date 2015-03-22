@@ -1,0 +1,23 @@
+{
+  "name":  "currencydemo",
+  "version": "0.1.2",
+  "authors": [
+    "Mark Kimsal <mark@igotaprinter.com>"
+  ],
+  "license": "other",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "local",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+	  "zmws": "https://github.com/markkimsal/zmws.git#~2.0.0"
+  },
+  "devDependencies": {
+	  "zmq": "https://github.com/zeromq/zeromq3-x.git#~3.2.4",
+	  "php-zmq": "https://github.com/mkoppanen/php-zmq.git#~1.1.2"
+  }
+}
