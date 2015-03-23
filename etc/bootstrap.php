@@ -41,7 +41,7 @@ _didef('dataitem', 'metrodb/dataitem.php');
 //_didef('taxcalc',  'utils/taxcaclculatorv1.php');
 //_didef('taxcalc',  '\FER\Utils\Taxcalculator');
 
-_set('template_basedir', 'templates/');
+_set('template_basedir', 'public/templates/');
 _set('template_baseuri', 'templates/');
 _set('template_name',    'cur01');
 _set('site_title',       'Hello Metro');
