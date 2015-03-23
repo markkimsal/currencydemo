@@ -1,4 +1,5 @@
 <?php
+chdir( dirname(__DIR__) );
 date_default_timezone_set('UTC');
 $metrofw_start = microtime(true);
 
