@@ -185,5 +185,6 @@
 <script src="<?php echo m_turl();?>plugins/tinymce/jquery.tinymce.min.js"></script>
 <!-- All functions for this theme + document.ready processing -->
 <script src="<?php echo m_turl();?>js/devoops.js"></script>
+<script src="<?php echo m_turl();?>js/websocket.js"></script>
 </body>
 </html>
