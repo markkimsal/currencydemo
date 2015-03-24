@@ -7,6 +7,8 @@ include_once (ZMWS_DIR.'src/worker_base.php');
 
 class Currency_Worker_Proctx extends Zmws_Worker_Base {
 
+	public $numTrades = 0;
+
 	/**
 	 * We forward messages to the processor, so connect
 	 * to the work server as a client
@@ -23,6 +25,7 @@ class Currency_Worker_Proctx extends Zmws_Worker_Base {
 	 */
 	public function work($jobid, $param='') {
 
+		$this->numTrades++;
 		$this->forwardToWs($param);
 		return TRUE;
 	}
@@ -33,6 +36,7 @@ class Currency_Worker_Proctx extends Zmws_Worker_Base {
 	public function forwardToWs($param) {
 		$stats = (object)array();
 		$stats->trades =array($param);
+		$stats->totalTrades = $this->numTrades;
 		$zforward = new Zmsg($this->frontend);
 //		$zforward->wrap('');
 		$zforward->body_set('stattx');
