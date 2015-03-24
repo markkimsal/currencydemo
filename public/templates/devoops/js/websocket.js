@@ -7,6 +7,10 @@ $(document).ready(function() {
 		console.log("Connection established!");
 	};
 	conn.onmessage = function(e) {
+		var stats = JSON.parse(e.data);
+		if (stats.totalTrades) {
+			$('#total_trades').html(stats.totalTrades);
+		}
 		console.log(e.data);
 	};
 });
