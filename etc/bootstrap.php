@@ -43,7 +43,7 @@ _didef('dataitem', 'metrodb/dataitem.php');
 
 _set('template_basedir', 'public/templates/');
 _set('template_baseuri', 'templates/');
-_set('template_name',    'cur01');
+_set('template_name',    'devoops');
 _set('site_title',       'Hello Metro');
 
 _set('route_rules',  array() );
