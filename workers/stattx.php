@@ -11,6 +11,8 @@ use Ratchet\WebSocket\WsServer;
 use MyApp\Chat;
 
 use React\ZMQ\Context;
+use React\Socket\Server as ReactServer;
+use React\EventLoop\Factory;
 
 
 include_once (ZMWS_DIR.'src/worker_base.php');
@@ -22,8 +24,9 @@ include_once (ZMWS_DIR.'src/worker_base.php');
 class Currency_Worker_Stattx extends Zmws_Worker_Base {
 
 	public $stats        = '';
-	public $latestTrades = NULL;
 	public $wsApp        = NULL;
+	public $latestTrades = NULL;
+	public $runningStats = NULL;
 
 	/**
 	 */
@@ -31,6 +34,7 @@ class Currency_Worker_Stattx extends Zmws_Worker_Base {
 	public function __construct($backendPort='', $context=NULL, $backendSocket=NULL) {
 		parent::__construct($backendPort, $context, $backendSocket);
 		$this->latestTrades = new \SplQueue(100);
+		$this->runningStats = (object)array();
 	}
 
 	/**
@@ -46,12 +50,11 @@ class Currency_Worker_Stattx extends Zmws_Worker_Base {
 			}
 		}
 
-		$stats = (object)array();
 		if (isset($param->totalTrades)) {
-			$stats->totalTrades = $param->totalTrades;
+			$this->runningStats->totalTrades = $param->totalTrades;
 		}
 
-		$this->broadcastStats($stats);
+		$this->broadcastStats($this->runningStats);
 
 		return TRUE;
 	}
@@ -92,14 +95,9 @@ class Currency_Worker_Stattx extends Zmws_Worker_Base {
 
 		$param                = (object)array();
 		$paramfield           = array_pop($message);
-		var_dump(strpos($paramfield, 'PARAM-JSON: '));
 		if (strpos($paramfield, 'PARAM-JSON: ') === 0) {
 			$param            = json_decode( substr($paramfield, 12));
 		}
-
-		var_dump(
-		$param
-		);
 
 		$retstatus            = $this->work($jobid, $param);
 
@@ -112,27 +110,22 @@ class Currency_Worker_Stattx extends Zmws_Worker_Base {
 
 }
 
-/**
- * Extend to get access to ZMQ socket with same Loop instance
- */
-class ZioServer extends IoServer {
+$loop   = React\EventLoop\Factory::create();
+$socket = new ReactServer($loop);
+$socket->listen('8080', '0.0.0.0');
 
-	public function getLoop() {
-		return $this->loop;
-	}
-
-}
 $chat = new Chat();
-$server = ZioServer::factory(
+$server = new IoServer(
 	new HttpServer(
 		new WsServer(
 			$chat
 		)
 	),
-	8080
+	$socket,
+	$loop
 );
 
-$context = new \React\ZMQ\Context($server->getLoop());
+$context = new \React\ZMQ\Context($loop);
 $dealer  = $context->getSocket(ZMQ::SOCKET_DEALER);
 //ZMWS worker
 $w = Currency_Worker_Stattx::factory('', $context, $dealer);
