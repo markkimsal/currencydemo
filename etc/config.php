@@ -6,9 +6,9 @@ $serverList = array(
 		'name'=>'server',
 		'flags'=> array(
 			'log-level'=>'D',
-			'client-port'=>'5555',
-			'worker-port'=>'5556',
-			'news-port'=>'5557'
+			'client-port'=>'6655',
+			'worker-port'=>'6656',
+			'news-port'=>'6657'
 		)
 	),
 	array(
@@ -16,17 +16,17 @@ $serverList = array(
 		'name'=>'gateway',
 		'flags'=> array(
 			'log-level'=>'I',
-			'client-port'=>'5555',
-			'http-port'=>'5580'
+			'client-port'=>'6655',
+			'http-port'=>'6680'
 		)
 	),
 	array(
 		'file'=>'local/zmws/src/http_gateway.php',
-		'name'=>'gateway',
+		'name'=>'gateway_b',
 		'flags'=> array(
 			'log-level'=>'I',
-			'client-port'=>'5555',
-			'http-port'=>'5590'
+			'client-port'=>'6655',
+			'http-port'=>'6690'
 		)
 	)
 );
@@ -38,8 +38,8 @@ $workerList = array(
 		'name'=>'txworker_b',
 		'flags'=> array(
 			'log-level'=>'E',
-			'frontend-port'=>'5555',
-			'backend-port'=>'5556',
+			'frontend-port'=>'6655',
+			'backend-port'=>'6656',
 			'service-name' => 'submittx'
 		)
 	),
@@ -49,8 +49,8 @@ $workerList = array(
 		'name'=>'txworker_a',
 		'flags'=> array(
 			'log-level'=>'E',
-			'frontend-port'=>'5555',
-			'backend-port'=>'5556',
+			'frontend-port'=>'6655',
+			'backend-port'=>'6656',
 			'service-name' => 'submittx'
 		)
 	),
@@ -60,8 +60,8 @@ $workerList = array(
 		'name'=>'proc_tx_b',
 		'flags'=> array(
 			'log-level'=>'E',
-			'frontend-port'=>'5555',
-			'backend-port'=>'5556',
+			'frontend-port'=>'6655',
+			'backend-port'=>'6656',
 			'service-name' => 'proctx'
 		)
 	),
@@ -71,8 +71,8 @@ $workerList = array(
 		'name'=>'proc_tx_a',
 		'flags'=> array(
 			'log-level'=>'E',
-			'frontend-port'=>'5555',
-			'backend-port'=>'5556',
+			'frontend-port'=>'6655',
+			'backend-port'=>'6656',
 			'service-name' => 'proctx'
 		)
 	),
@@ -82,8 +82,8 @@ $workerList = array(
 		'name'=>'stat_tx_a',
 		'flags'=> array(
 			'log-level'=>'E',
-			'frontend-port'=>'5555',
-			'backend-port'=>'5556',
+			'frontend-port'=>'6655',
+			'backend-port'=>'6656',
 			'service-name' => 'stattx'
 		)
 	)
