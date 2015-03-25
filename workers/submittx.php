@@ -36,6 +36,7 @@ class Currency_Worker_Submittx extends Zmws_Worker_Base {
 		$zforward->wrap(0x01);
 		$zforward->wrap("MDPC02");
 		$zforward->send();
+		$zforward->recv();
 	}
 }
 

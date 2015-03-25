@@ -35,6 +35,7 @@ class Currency_Worker_Stattx extends Zmws_Worker_Base {
 		parent::__construct($backendPort, $context, $backendSocket);
 		$this->latestTrades = new \SplQueue(100);
 		$this->runningStats = (object)array();
+		$this->runningStats->totalTrades = 0;
 
 		$this->latestTrades->setIteratorMode(\SplDoublyLinkedList::IT_MODE_KEEP);
 	}
