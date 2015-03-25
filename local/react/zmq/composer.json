@@ -1,0 +1,26 @@
+{
+    "name": "react/zmq",
+    "description": "ZeroMQ bindings for React.",
+    "keywords": ["zmq", "zeromq"],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.4.0",
+        "ext-zmq": "*",
+        "evenement/evenement": "~2.0",
+        "react/event-loop": "0.4.*"
+    },
+    "require-dev": {
+        "ext-pcntl": "*",
+        "phpunit/phpunit": "~4.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "React\\ZMQ\\": "src"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.4-dev"
+        }
+    }
+}
