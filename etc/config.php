@@ -13,6 +13,15 @@ $serverList = array(
 	),
 	array(
 		'file'=>'local/zmws/src/http_gateway.php',
+		'name'=>'gateway_e',
+		'flags'=> array(
+			'log-level'=>'W',
+			'client-port'=>'6655',
+			'http-port'=>'6693'
+		)
+	),
+	array(
+		'file'=>'local/zmws/src/http_gateway.php',
 		'name'=>'gateway_d',
 		'flags'=> array(
 			'log-level'=>'W',
