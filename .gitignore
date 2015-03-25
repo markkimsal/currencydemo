@@ -3,3 +3,4 @@ vendor/
 *~
 logs/*.txt
 run/*
+node_modules/*
