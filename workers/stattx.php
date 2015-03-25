@@ -35,6 +35,8 @@ class Currency_Worker_Stattx extends Zmws_Worker_Base {
 		parent::__construct($backendPort, $context, $backendSocket);
 		$this->latestTrades = new \SplQueue(100);
 		$this->runningStats = (object)array();
+
+		$this->latestTrades->setIteratorMode(\SplDoublyLinkedList::IT_MODE_KEEP);
 	}
 
 	/**
@@ -43,10 +45,10 @@ class Currency_Worker_Stattx extends Zmws_Worker_Base {
 	 * TODO: send tx and stats to WS frontend
 	 */
 	public function work($jobid, $param='') {
-
 		if (isset($param->trades)) {
 			foreach ($param->trades as $_trade) {
 				$this->latestTrades->enqueue($_trade);
+				$this->runningStats->trades = $param->trades;
 			}
 		}
 
@@ -68,7 +70,11 @@ class Currency_Worker_Stattx extends Zmws_Worker_Base {
 			foreach ($this->latestTrades as $_trade) {
 				$trades[] = $_trade;
 			}
-			$conn->send( json_encode($trades));
+			$stats = (object)array();
+			$stats->initialTrades = $trades;
+
+			$stats->totalTrades = $this->runningStats->totalTrades;
+			$conn->send( json_encode($stats));
 		});
 	}
 

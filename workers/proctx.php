@@ -34,11 +34,13 @@ class Currency_Worker_Proctx extends Zmws_Worker_Base {
 	 * Push the param to the 'proctx' job
 	 */
 	public function forwardToWs($param) {
+
 		$stats = (object)array();
+
 		$stats->trades =array($param);
 		$stats->totalTrades = $this->numTrades;
+
 		$zforward = new Zmsg($this->frontend);
-//		$zforward->wrap('');
 		$zforward->body_set('stattx');
 		$zforward->wrap('PARAM-JSON: '.json_encode($stats));
 		$zforward->wrap(0x01);
