@@ -3,12 +3,12 @@
 chdir( dirname(dirname(__FILE__)) );
 define('ZMWS_DIR', 'local/zmws/');
 require './local/autoload.php';
-include('chat.php');
+include('./src/Cf/Wsapp.php');
 
 use Ratchet\Server\IoServer;
 use Ratchet\Http\HttpServer;
 use Ratchet\WebSocket\WsServer;
-use MyApp\Chat;
+use Cf\Wsapp;
 
 use React\ZMQ\Context;
 use React\Socket\Server as ReactServer;
@@ -120,11 +120,11 @@ $loop   = React\EventLoop\Factory::create();
 $socket = new ReactServer($loop);
 $socket->listen('8080', '0.0.0.0');
 
-$chat = new Chat();
+$wsapp = new Wsapp();
 $server = new IoServer(
 	new HttpServer(
 		new WsServer(
-			$chat
+			$wsapp
 		)
 	),
 	$socket,
@@ -136,7 +136,7 @@ $dealer  = $context->getSocket(ZMQ::SOCKET_DEALER);
 //ZMWS worker
 $w = Currency_Worker_Stattx::factory('', $context, $dealer);
 $w->log_level = 'D';
-$w->setWsApp($chat);
+$w->setWsApp($wsapp);
 
 //connect up ZMWS with React notices
 $dealer->on('connect', function($socket) use($w){
@@ -145,7 +145,7 @@ $dealer->on('connect', function($socket) use($w){
 
 $dealer->on('message', array($w, 'onMessage'));
 
-$dealer->on('messages', function($messages) use ($w, $chat) {
+$dealer->on('messages', function($messages) use ($w, $wsapp) {
 	$w->onMessages($messages);
 });
 
