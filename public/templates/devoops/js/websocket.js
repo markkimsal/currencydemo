@@ -31,7 +31,10 @@ $(document).ready(function() {
 		if (stats.initialTrades) {
 			var tbody = $('#ticker-table tbody');
 			var template = tbody.find('tr').first().clone();
-			tbody.empty();
+			//don't blow away template row if no trades are present
+			if (stats.initialTrades.length) {
+				tbody.empty();
+			}
 			for(var i=0; i < stats.initialTrades.length; i++) {
 				var trow = template.clone();
 				var trade = stats.initialTrades[i];
