@@ -31,7 +31,7 @@ This demo is setup for horizontal scaling with either a single master work serve
 
 Performance
 ======
-It's hard for me to test performance because my Internet connection is easily saturated (my wifi card has a bad motivator).  I was able to get about 120-130 req/sec hitting the live machine.  This produced about 10% CPU load so I'm guessing it can scale to around 600-800 req/sec on a single node.
+I was able to get about 120-130 req/sec hitting the live machine before my Internet connection got saturated.  This produced about 10% CPU load so I'm guessing it can scale to around 600-800 req/sec on a single node.
 
 On Using PHP
 ---
