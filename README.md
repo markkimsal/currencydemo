@@ -20,7 +20,7 @@ This worker compiles some stats from the stream of transactions (currently only 
 
 Stattx
 ----
-This worker displays the stats from Proctx to a Web page via Web Socket technology.
+This worker displays the stats from Proctx to a Web page via Web Socket technology.  On an initial WS conneciton it will fill the client with currently saved stats.  During each message from Proctx it will update all clients with each individual transaction and a new number of total transactions.
 
 Architecture
 =====
