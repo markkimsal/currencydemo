@@ -1,12 +1,8 @@
 
-$(document).ready(function() {
 
+
+function EnableTestButton() {
 	var host = window.location.hostname;
-	var conn = new WebSocket('ws://'+host+':8080');
-	conn.onopen = function(e) {
-		console.log("Connection established!");
-	};
-
 	$('#submittest').on('click', function(e) {
 		$.ajax({
 			url: 'http://' + host + '/SYNC-submittx',
@@ -15,6 +11,14 @@ $(document).ready(function() {
 			dataType: "text/plain"
 		});
 	});
+}
+
+function EnableWebSocket() {
+	var host = window.location.hostname;
+	var conn = new WebSocket('ws://'+host+':8080');
+	conn.onopen = function(e) {
+		console.log("Connection established!");
+	};
 
 	conn.onmessage = function(e) {
 		var stats = JSON.parse(e.data);
@@ -77,4 +81,4 @@ $(document).ready(function() {
 		});
 
 	}
-});
+};
