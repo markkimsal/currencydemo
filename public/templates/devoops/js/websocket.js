@@ -7,6 +7,15 @@ $(document).ready(function() {
 		console.log("Connection established!");
 	};
 
+	$('#submittest').on('click', function(e) {
+		$.ajax({
+			url: 'http://' + host + '/SYNC-submittx',
+			type: 'POST',
+			data: '{"userId": "134256", "currencyFrom": "GBP", "currencyTo": "USD", "amountSell": 1000, "amountBuy": 747.10, "rate": 0.7471, "timePlaced" : "14-JAN-15 10:27:44", "originatingCountry" : "FR"}',
+			dataType: "text/plain"
+		});
+	});
+
 	conn.onmessage = function(e) {
 		var stats = JSON.parse(e.data);
 		if (stats.totalTrades) {
